@@ -22,7 +22,7 @@ SYN Scan (Standard Scan)
 ```
 sudo nmap -sS 192.168.50.5
 ```
-Null-Sacn (Very Stealhy)
+Null-Sacn (Very stealthy)
 ```
 sudo nmap -sN 192.168.50.5
 ```
