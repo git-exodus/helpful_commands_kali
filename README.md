@@ -55,3 +55,29 @@ hashcat -m 0 -a 0 hash.txt /usr/share/wordlists/rockyou.txt
 ```
 
 </details>
+
+<details>
+<summary style="cursor:pointer">john the ripper</summary>
+Read more [List-Hashes](https://hashcat.net/wiki/doku.php?id=example_hashes)
+  
+Common Hashes: Base64 , SHA256 , MD4 , MD5, bcyrpt, acrypt, etc - see list
+
+Identify Hash Format with HashID -Tool
+```
+hashid 7bf6d9bb82bed1302f331fc6b816aada
+```
+
+Dictonary BruteForce
+```
+john --format=sha512crypt --wordlist=/usr/share/wordlists/rockyou.txt hash.txt
+```
+
+Single Word BruteForce
+```
+IMPORTANT: in the text.file [joker:HASHVALUE ................]
+Example: joker:r0mwmrt9mewvm9ze00mtmrewm9ewrmz0wemzbmwermzewr
+
+john --single --format=raw-MD5 --worlist=/usr/share/wordlists/rockyou.txt hash.txt 
+```
+
+</details>
