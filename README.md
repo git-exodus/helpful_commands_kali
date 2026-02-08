@@ -7,13 +7,15 @@ controlled environment for educational or security assessment purposes.
 
 <details>
 <summary style="cursor:pointer">nmap</summary>
-
-Tabelle
-Scan Type	Speed	Stealth	Accuracy	Firewall Evasive
-SYN Scan	Fast	Medium	High	Medium
-NULL Scan	Slow	Very High	Medium	High
-FIN Scan	Slow	High	Medium	Medium
-Xmas Scan	Slow	Medium	Medium	Medium
+  
+Read more [CheatSheet](./nmap-cheat-sheet.pdf)\
+  
+Tabelle\
+Scan Type	Speed	Stealth	Accuracy	Firewall Evasive\
+SYN Scan	Fast	Medium	High	Medium\
+NULL Scan	Slow	Very High	Medium	High\
+FIN Scan	Slow	High	Medium	Medium\
+Xmas Scan	Slow	Medium	Medium	Medium\
 ACK Scan	Very Slow	Low	High	Low
 
 SYN Scan (Standard Scan)
@@ -31,8 +33,8 @@ This makes your scans appear to originate from the bogus source IP rather than y
 
 nmap --spoof-source 192.168.1.5 192.168.1.25
 ```
-```bash
 Fragmented Packets
+```bash
 Fragmenting the scanned packets breaks them into multiple pieces to avoid triggering IDS signatures tuned to whole packets.
 
 nmap --mtu 24 192.168.1.25
