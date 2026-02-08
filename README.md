@@ -41,3 +41,17 @@ nmap --mtu 24 192.168.1.25
 ```
 
 </details>
+
+<details>
+<summary style="cursor:pointer">hashcat</summary>
+  
+Read more [List-HashCat](https://hashcat.net/wiki/doku.php?id=example_hashes)
+  
+Common Hashes: Base64 , SHA256 , MD4 , MD5, bcyrpt, acrypt, etc - see list
+
+Use hascat or JohnTheRipper
+```
+hashcat -m 0 -a 0 hash.txt /usr/share/wordlists/rockyou.txt
+```
+
+</details>
