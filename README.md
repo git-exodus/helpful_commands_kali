@@ -80,4 +80,17 @@ Example: joker:r0mwmrt9mewvm9ze00mtmrewm9ewrmz0wemzbmwermzewr
 john --single --format=raw-MD5 --worlist=/usr/share/wordlists/rockyou.txt hash.txt 
 ```
 
+Zip and Rar convert to John Hashable file
+```
+zip2john filezip.zip > hashfile
+or
+python3 rar2john filerar.rar > hashfile
+
+does a secured rar file >> into a hashfile
+
+use: "zip2john --wordlist=/usr/share/wordlist/rockyou.txt hashfile"
+or the python3 python3 rar2john
+```
+
+
 </details>
