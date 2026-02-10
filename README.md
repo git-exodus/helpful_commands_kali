@@ -181,6 +181,8 @@ For more details and infos use "info"
 msf6 exploit(windows/smb/ms17_010_eternalblue) > info
 ```
 
+Here you can see the exploit ranking: [Ranks](./metasploitrank.png)
+
 </details>
 
 <details>
