@@ -334,6 +334,85 @@ msf6 auxiliary(scanner/smb/smb_login) > run
 [*] 10.67.177.119:445     - You can open an SMB session with these credentials and CreateSession set to true <<<<<<<<<<<<<<
 [*] Auxiliary module execution completed
 msf6 auxiliary(scanner/smb/smb_login) > 
+```
+
+
+How to open a session after got in:
+
+- sessions = Lookup sessions
+- -sessions -i NUMBER
+- shares = what on the network
+- 
+```
+msf6 auxiliary(scanner/smb/smb_login) > back
+msf6 > sessions
+
+Active sessions
+===============
+
+  Id  Name  Type  Information                    Connection
+  --  ----  ----  -----------                    ----------
+  1         smb   SMB penny @ 10.67.177.119:445  10.67.91.215:39779 -> 10.67.177.119:445 (10.67.177.119)
+
+msf6 > session -i 1
+[-] Unknown command: session. Did you mean sessions? Run the help command for more details.
+msf6 > sessions -i 1
+[*] Starting interaction with 1...
+
+SMB (10.67.177.119) > shares
+Shares
+======
+
+    #  Name    Type         comment
+    -  ----    ----         -------
+    0  print$  DISK         Printer Drivers
+    1  IPC$    IPC|SPECIAL  IPC Service (ip-10-67-177-119 server (Samba, 1776))
+```
+
+NetBIOS Search and use:
+```
+msf6 > search netbios
+
+Matching Modules
+================
+
+   #  Name                                          Disclosure Date  Rank    Check  Description
+   -  ----                                          ---------------  ----    -----  -----------
+   0  auxiliary/scanner/http/ntlm_info_enumeration  .                normal  No     Host Information Enumeration via NTLM Authentication
+   1  auxiliary/spoof/llmnr/llmnr_response          .                normal  No     LLMNR Spoofer
+   2  auxiliary/scanner/netbios/nbname              .                normal  No     NetBIOS Information Discovery
+   3  auxiliary/spoof/nbns/nbns_response            .                normal  No     NetBIOS Name Service Spoofer
+   4  auxiliary/server/netbios_spoof_nat            2016-06-14       normal  No     NetBIOS Response "BadTunnel" Brute Force Spoof (NAT Tunnel)
+   5  auxiliary/admin/netbios/netbios_spoof         .                normal  No     NetBIOS Response Brute Force Spoof (Direct)
+   6  auxiliary/dos/smb/smb_loris                   2017-06-29       normal  No     SMBLoris NBSS Denial of Service
+   7  auxiliary/server/wpad                         .                normal  No     WPAD.dat File Server
+
+
+Interact with a module by name or index. For example info 7, use 7 or use auxiliary/server/wpad
+
+msf6 > use auxiliary/scanner/netbios/nbname 
+msf6 auxiliary(scanner/netbios/nbname) > options
+
+Module options (auxiliary/scanner/netbios/nbname):
+
+   Name       Current Setting  Required  Description
+   ----       ---------------  --------  -----------
+   BATCHSIZE  256              yes       The number of hosts to probe in each set
+   RHOSTS     10.67.177.119    yes       The target host(s), see https://docs.metasploit.com/docs/using-metasploit/basics/using-metasploit.html
+   RPORT      137              yes       The target port (UDP)
+   THREADS    10               yes       The number of concurrent threads
+
+
+View the full module info with the info, or info -d command.
+
+msf6 auxiliary(scanner/netbios/nbname) > run
+[*] Sending NetBIOS requests to 10.67.177.119->10.67.177.119 (1 hosts)
+[+] 10.67.177.119 [] OS:Unix Names:(__MSBROWSE__, , ACME IT SUPPORT)  Mac:00:00:00:00:00:00  <<<<< NAME
+[*] Scanned 1 of 1 hosts (100% complete)
+[*] Auxiliary module execution completed
+
+msf6 auxiliary(scanner/netbios/nbname) > 
+```
 
 </details>
 
