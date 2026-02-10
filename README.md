@@ -94,3 +94,22 @@ or the python3 python3 rar2john
 
 
 </details>
+
+
+<details>
+<summary style="cursor:pointer">metasploit</summary>
+  
+
+</details>
+
+<details>
+<summary style="cursor:pointer">dirbuster</summary>
+  
+
+</details>
+
+<details>
+<summary style="cursor:pointer">gobuster</summary>
+  
+
+</details>
