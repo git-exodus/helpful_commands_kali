@@ -176,6 +176,11 @@ Module options (post/windows/gather/enum_domain_users):
 msf6 post(windows/gather/enum_domain_users) >
 ```
 
+For more details and infos use "info"
+```
+msf6 exploit(windows/smb/ms17_010_eternalblue) > info
+```
+
 </details>
 
 <details>
