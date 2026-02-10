@@ -5,6 +5,16 @@ controlled environment for educational or security assessment purposes.
 
 # Tools
 
+Tip:
+You may want to look for low-hanging fruits such as:
+
+HTTP: Could potentially host a web application where you can find vulnerabilities like SQL injection or Remote Code Execution (RCE).
+FTP: Could allow anonymous login and provide access to interesting files.
+SMB: Could be vulnerable to SMB exploits like MS17-010
+SSH: Could have default or easy to guess credentials
+RDP: Could be vulnerable to Bluekeep or allow desktop access if weak credentials were used. 
+---
+
 <details>
 <summary style="cursor:pointer">nmap</summary>
   
