@@ -54,6 +54,19 @@ nmap --mtu 24 192.168.1.25
 </details>
 
 <details>
+<summary style="cursor:pointer">enum4linux</summary>
+
+```
+/root/Desktop/Tools/Miscellaneous/enum4linux.pl 10.65.179.147
+```
+
+```
+
+```
+
+</details>
+
+<details>
 <summary style="cursor:pointer">hashcat</summary>
   
 Read more [List-HashCat](https://hashcat.net/wiki/doku.php?id=example_hashes)
