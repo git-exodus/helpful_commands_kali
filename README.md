@@ -595,13 +595,59 @@ hashdump: Dumps the contents of the SAM database
 </details>
 
 <details>
-<summary style="cursor:pointer">dirbuster</summary>
-  
+<summary style="cursor:pointer">hydra</summary>
+Possible protocols:
+Asterisk, AFP, Cisco AAA, Cisco auth, Cisco enable, CVS, Firebird, FTP, HTTP-FORM-GET, HTTP-FORM-POST, HTTP-GET, HTTP-HEAD, HTTP-POST,  
+  HTTP-PROXY, HTTPS-FORM-GET, HTTPS-FORM-POST, HTTPS-GET, HTTPS-HEAD, HTTPS-POST, HTTP-Proxy, ICQ, IMAP, IRC, LDAP, MEMCACHED, MONGODB,  
+  MS-SQL, MYSQL, NCP, NNTP, Oracle Listener, Oracle SID, Oracle, PC-Anywhere, PCNFS, POP3, POSTGRES, Radmin, RDP, Rexec, Rlogin, Rsh, RTSP,   
+  SAP/R3, SIP, SMB, SMTP, SMTP Enum, SNMP v1+v2+v3, SOCKS5, SSH (v1 and v2), SSHKEY, Subversion, TeamSpeak (TS2), Telnet, VMware-Auth, VNC and XMPP.  
+
+```
+FTP
+hydra -l user -P passlist.txt ftp://10.65.178.189
+```
+```
+SSH
+hydra -l <username> -P <full path to pass> 10.65.178.189 -t 4 ssh
+
+Option	Description
+CAREFUL upprcase and lowercase
+-l / -L	specifies the (SSH) username for login /// indicates a list of usernames
+-p / -P checking just ONE password ///	indicates a list of passwords
+-t	sets the number of threads to spawn
+```
+```
+WEB
+We can use Hydra to brute force web forms, too. You must know which type of request it is making;
+GET or POST methods are commonly used. You can use your browser’s network tab (in developer tools) to see the request types or view the source code.
+
+hydra <username> <wordlist> 10.65.178.189 http-post-form "<path>:<login_credentials>:<invalid_response>
+```
 
 </details>
 
 <details>
 <summary style="cursor:pointer">gobuster</summary>
-  
+dns mode: enumerates dns subdomains.  
+dir mode: enumerates directories.  
+vhost mode: enumerates virtual hosts.
 
+```
+gobuster dir -u "http://www.example.thm" -w /path/to/wordlist
+```
+
+In the host part of the URL, you can either fill in the IP or the HOSTNAME. However, it is important   
+to mention that when using the IP, you may target a different website than intended. A web server can   
+host multiple websites using one IP (this technique is also called virtual hosting). Use the HOSTNAME if you want to be sure.   
+
+```
+we use the -x flag to specify what type of files we want to enumerate:
+gobuster dir -u "http://www.example.thm" -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x .php,.js
+```
+```
+gobuster dns -d example.thm -w /usr/share/wordlists/SecLists/Discovery/DNS/subdomains-top1million-5000.txt
+```
+```
+gobuster vhost -u "http://example.thm" -w /path/to/wordlist
+```
 </details>
