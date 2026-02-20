@@ -696,3 +696,22 @@ gobuster dns -d example.thm -w /usr/share/wordlists/SecLists/Discovery/DNS/subdo
 gobuster vhost -u "http://example.thm" -w /path/to/wordlist
 ```
 </details>
+
+---
+
+<details>
+<summary style="cursor:pointer">Pwnkit: CVE-2021-4034</summary>
+
+```
+Can be localy exploited with a memory out of bounce exploitation.
+Its possible to get root as a normal user.
+
+PATCH with: sudo apt update && sudo apt upgrade
+
+Compile the exploit.
+pwnkit/gcc cve-2021-4034-poc.c -o exploit
+
+./exploit to obtain instant root access over the target
+```
+</details>
+Pwnkit: CVE-2021-4034
