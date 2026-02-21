@@ -54,6 +54,19 @@ nmap --mtu 24 192.168.1.25
 </details>
 
 <details>
+<summary style="cursor:pointer">rustscan</summary>
+
+```
+rustscan -r 1-65000 -a 10.114.134.70
+
+--- With NMAP arguments (-- and then -A -O -sC ) 
+rustscan -r 1-65000 -a 10.114.134.70 -- -A -sC
+
+```
+
+</details>
+
+<details>
 <summary style="cursor:pointer">enum4linux</summary>
 
 ```
